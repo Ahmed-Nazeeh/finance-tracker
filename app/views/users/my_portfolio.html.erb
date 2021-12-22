@@ -2,7 +2,7 @@
 
 <div class='search-area'>
     <h3>Search Stock</h3>
-    <%= form_tag stock_search_path, remote: true, method: :get do %>
+    <%= form_tag search_stock_path, remote: true, method: :get do %>
         <div class="form-group row">
             <div class="col-sm-9  no-right-padding">
                 <%= text_field_tag :stock, params[:stock], placholder: "Stock ticker symbol", autofocus: true, class: "form-control form-control-lg" %>
@@ -21,3 +21,5 @@
 <% if !@tracked_stocks.empty? %>
     <%= render 'stocks/list' %>
 <% end %>
+
+
