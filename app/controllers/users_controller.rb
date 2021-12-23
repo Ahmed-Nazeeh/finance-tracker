@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     #render json: params[:friend]
     if params[:friend].present?
       @friends = User.search(params[:friend])
+      @friends = current_user.except_current_user(@friends)
       #byebug
       if @friends
           respond_to do |format|

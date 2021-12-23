@@ -48,6 +48,13 @@ class User < ApplicationRecord
 
   def self.matches(field_name, param)   #self so that convert it to class method not write User
     where("#{field_name} like ?", "%#{param}%")
-end
+  end
+  def except_current_user(users)
+    users.reject {|user| user.id == self.id}
+  end
+
+  def not_friends_with?(id_of_friend)
+    !self.friends.where(id: id_of_friend).exists?
+  end
   
 end
