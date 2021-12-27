@@ -19,6 +19,30 @@ class UserStocksController < ApplicationController
         
     end
 
+    def update
+        @tracked_stocks = current_user.stocks
+            #stock = Stock.new_look_up(params[:ticker])
+            #byebug
+            #x = Stock.find(params[:id]).update(last_price: stock.last_price)
+            #byebug
+            #flash[:notice] = "Stock #{stock.name} updated"
+            #redirect_to my_portfolio_path
+
+        #stock_id = 2   #<<<<<<<<<<<<<<<<<<<<<<<<< delete
+        @tracked_stocks.ids.each do |stock_id|   #<<<<<<<<<<<<<<<<<<<<<<<<uncomment
+            stock_from_db = Stock.find(stock_id)
+            stock = Stock.new_look_up(stock_from_db.ticker)
+            stock_from_db.update(last_price: stock.last_price)
+        end  #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< uncomment
+        
+        #respond_to do |format|
+            #format.js {render partial: 'users/prices_update'}
+            #flash.now[:notice] = "Stocks updated"
+          #end
+        flash[:notice] = "Stocks has been updated"
+        redirect_to my_portfolio_path
+    end
+
     def destroy
         stock = Stock.find(params[:id])
         UserStock.where(user_id: current_user.id, stock_id: stock.id).first.destroy

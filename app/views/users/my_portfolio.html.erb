@@ -1,5 +1,13 @@
 <h1>My Portfolio</h1>
 
+
+<div class="row justify-content-end">
+  <div class="col-4">
+      <%= link_to 'Update Prices' , user_stock_path(current_user.id), class: "btn btn-lg btn-success", :method => "put" %>
+  </div>
+</div>
+    
+
 <div class='search-area'>
     <h3>Search Stock</h3>
     <%= form_tag search_stock_path, remote: true, method: :get do %>
